@@ -1,38 +1,21 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'raleway-semi-bold';
+  src: url('../src/assets/fonts/Raleway-SemiBold.ttf') format('truetype')
+}
+@font-face {
+  font-family: 'raleway-regular';
+  src: url('../src/assets/fonts/Raleway-Regular.ttf') format('truetype')
+}
+@font-face {
+  font-family: 'carme-regular';
+  src: url('../src/assets/fonts/Carme-Regular.ttf') format('truetype')
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2 {
+  font-family: 'raleway-semi-bold' ;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body, html,  label, p{
+  font-family: 'carme-regular';
+  margin: 0;
 }
