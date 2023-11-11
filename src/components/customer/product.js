@@ -68,6 +68,7 @@ const ProductDeal = styled.h2`
   font-size: 24px;
   color: ${COLORS.red};
   background: black;
+  border-radius: 10px;
   @media (max-width: 768px) {
     padding-right: 5px;
     grid-row: 1;
