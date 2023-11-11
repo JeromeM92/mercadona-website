@@ -2,39 +2,30 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Dropdown from '../commonComponents/DropDown';
 import TextField from '../commonComponents/TextField';
-import LabeledField from '../commonComponents/LabelField';
 import ImageUploader from '../commonComponents/ImageUploader';
 import { COLORS } from '../../assets/colors/colors';
 
 const ProductCreationContainer = styled.div`
     width: 60%;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 5vh;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr; 
-`;
-const ProductImageAndFieldsContainer = styled.div`
-    height: auto;
-    display: grid;
-    grid-template-columns: 210px repeat(2, 1fr);
-    grid-template-rows: 30px 1fr 30px 1fr;
-    gap: 40px;
-`;
-const ProductImageContainer = styled.div`
-    height: auto;
-    grid-row: 1 / 4;
-    grid-column: 1 / 2;
-    box-sizing: border-box;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 3vh 5vh 5vh 3vh; 
+    grid-gap: 3vh;
 `;
 const ImageLabel = styled.label`
     grid-row: 1;
     grid-column: 1;
 `;
-
+const ProductImageContainer = styled.div`
+    height: auto;
+    grid-row: 2 / 5;
+    grid-column: 1;
+    box-sizing: border-box;
+`;
 const NameContainer = styled.div`
-    display: grid;
-    grid-template-rows: 1fr 1fr; 
     grid-row: 2;
     grid-column: 2;
 `;
@@ -42,33 +33,36 @@ const NameLabel = styled.label`
     grid-row: 1;
     grid-column: 2 ;
 `;
-
+// PRICE
+const PriceLabel = styled.label`
+    grid-row: 3;
+    grid-column: 2 ;
+`;
 const PriceContainer = styled.div`
     grid-row: 4;
     grid-column: 2;
 `;
-const PriceLabel = styled.label`
-    grid-row: 3;
-    grid-column: 2 ;
+// CATEGORY
+const CategoryLabel = styled.label`
+    grid-row: 1;
+    grid-column: 3 ;
 `;
 const CategoryContainer = styled.div`
     grid-row: 2;
     grid-column: 3;
 `;
-const CategoryLabel = styled.label`
-    grid-row: 1;
+// PROMOTION
+const PromotionLabel = styled.label`
+    grid-row: 3;
     grid-column: 3 ;
 `;
 const PromotionContainer = styled.div`
     grid-row: 4;
     grid-column: 3;
 `;
-const PromotionLabel = styled.label`
-    grid-row: 3;
-    grid-column: 3 ;
-`;
+
 const DescriptionField = styled.textarea`
-    grid-row: 2;
+    grid-row: 6;
     grid-column: 1/-1;
     height: 280px; // Hauteur arbitraire, ajustez selon vos besoins
     border: 1px solid ${COLORS.darkGreen};
@@ -83,12 +77,16 @@ const DescriptionField = styled.textarea`
 `;
 
 const CreateButton = styled.button`
-    grid-row: 3;
-    background-color: yellow;
+    width: 5vw;
+    grid-row: 7;
+    grid-column:2;
+    background-color: ${COLORS.yellow};
     padding: 10px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    border: 1px solid ${COLORS.darkGreen};
+    justify-self: center;
 `;
 
 function CreateProductScreen() {
@@ -104,12 +102,11 @@ function CreateProductScreen() {
 
   return (
     <ProductCreationContainer>
-        <ProductImageAndFieldsContainer>
-            <ProductImageContainer>
             <ImageLabel>Photo du produit</ImageLabel>
+            <ProductImageContainer>
             <ImageUploader onChange={(file) => console.log('Fichier sélectionné :', file)} />
-                
             </ProductImageContainer>
+            
                 <NameLabel>Nom du produit</NameLabel>
                 <NameContainer>
                     <TextField 
@@ -144,16 +141,12 @@ function CreateProductScreen() {
                         onSelectOption={(promotion) => setSelectedPromotion(promotion)}
                         />
                 </PromotionContainer>
-
-            
-        </ProductImageAndFieldsContainer>
-        <DescriptionField
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
-            placeholder="Entrez votre description ici..."
-        />
+                <DescriptionField 
+                    value={productDescription} 
+                    onChange={(e) => setProductDescription(e.target.value)} 
+                    placeholder="Entrez votre description ici..." /> 
+                <CreateButton onClick={handleCreateProduct}>Créer</CreateButton>
         
-        <CreateButton onClick={handleCreateProduct}>Créer</CreateButton>
     </ProductCreationContainer>
   );
 };

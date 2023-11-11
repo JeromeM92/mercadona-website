@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IoMdAdd } from 'react-icons/io';
+import { IoMdAdd,IoMdTrash } from 'react-icons/io';
 
 
 const ImageUploadContainer = styled.div`
@@ -46,8 +46,13 @@ const UploadButton = styled.label`
   }
 `;
 
-const PlusIcon = styled.span`
-  font-size: 24px;
+const RemoveButton = styled(IoMdTrash)`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
 `;
 
 const ImageUploader = ({ onChange }) => {
@@ -67,9 +72,18 @@ const ImageUploader = ({ onChange }) => {
       reader.readAsDataURL(file);
     }
   };
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    onChange(null); // Pass null to indicate that the image has been removed
+  };
 
   return (
     <ImageUploadContainer>
+        {imagePreview && (
+        <RemoveButton onClick={handleRemoveImage}>
+           <IoMdTrash size={20} />
+        </RemoveButton>
+      )}
       {imagePreview ? (
         <ImagePreview src={imagePreview} alt="Product" />
       ) : (
