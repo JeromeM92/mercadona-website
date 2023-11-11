@@ -113,6 +113,7 @@ const ProductTitleDescriptionContainer = styled.div`
 `;
 const ProductDescription = styled.p`
     font-size: 15px;
+    text-align: justify;
     line-height: 20px;
     max-height: 100px;
     overflow: hidden;
