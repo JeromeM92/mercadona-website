@@ -19,3 +19,10 @@ body, html,  label, p{
   font-family: 'carme-regular';
   margin: 0;
 }
+
+html, body, #root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
