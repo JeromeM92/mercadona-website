@@ -10,6 +10,7 @@ const ImageUploadContainer = styled.div`
   height: 100%;
   border: 2px dashed #ddd; /* Bordure stylisée, vous pouvez ajuster la couleur et l'épaisseur selon vos préférences */
   border-radius: 8px;
+  box-sizing: border-box;
 `;
 
 const StyledPlusIcon = styled(IoMdAdd)`
