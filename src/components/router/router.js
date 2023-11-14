@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from '../login/login';
-import Admin from "../admin/admin";
+import AdminScreen from "../admin/adminScreen";
 import CreateProductScreen from "../admin/createProductScreen";
 import CustomerScreen from "../customer/customerScreen";
 
@@ -9,7 +9,7 @@ function AppRouter() {
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/admin-board" element={<Admin/>}/>
+                <Route path="/admin-board" element={<AdminScreen/>}/>
                 <Route path="/admin-create-product" element={<CreateProductScreen/>}/>
                 <Route path="/" element={<CustomerScreen/>}/>
             </Routes>

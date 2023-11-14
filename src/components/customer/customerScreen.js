@@ -1,10 +1,9 @@
 // CustomerScreen.js
 import React, { useState } from 'react';
-import Product from './product';
 import Dropdown from '../commonComponents/DropDown';
 import Pixel6A from "../../assets/pixel-6a-3.jpg"
+import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
-import { COLORS } from '../../assets/colors/colors';
 
 const mockProduct = {
   id: 1,
@@ -83,14 +82,10 @@ function CustomerScreen() {
             onSelectOption={(category) => setSelectedCategory(category)}
           />
         </CategoryDropdownContainer>
-        
         <ProductListContainer>
-          {filteredProducts.map((product) => (
-            <Product key={product.id} product={product} />
-          ))}
-
-
+          <ProductList products={products}/>
         </ProductListContainer>
+        
       </CustomerScreenContainer>
       
     </div>
