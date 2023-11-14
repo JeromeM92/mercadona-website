@@ -1,7 +1,7 @@
 // CustomerScreen.js
 import React, { useState } from 'react';
 import Product from './product';
-import CategoryDropdown from '../commonComponents/DropDown';
+import Dropdown from '../commonComponents/DropDown';
 import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import styled from 'styled-components';
 import { COLORS } from '../../assets/colors/colors';
@@ -64,7 +64,6 @@ const ProductListContainer = styled.div`
   }
 `;
 
-const categories = Array.from(new Set(products.map((product) => product.category)));
 
 function CustomerScreen() {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -77,10 +76,11 @@ function CustomerScreen() {
     <div>
       <CustomerScreenContainer>
         <CategoryDropdownContainer>
-          <CategoryDropdown
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
+          <Dropdown
+            name="Catégorie"
+            options={['Category1', 'Category2', 'Category3']}
+            selectedOption={selectedCategory}
+            onSelectOption={(category) => setSelectedCategory(category)}
           />
         </CategoryDropdownContainer>
         

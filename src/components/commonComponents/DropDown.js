@@ -5,8 +5,9 @@ import { COLORS } from '../../assets/colors/colors';
 
 const StyledDropdown = styled.select`
   width: 240px;
+  height: 40px; 
   border: 1px solid ${COLORS.darkGreen};
-  padding: 12px 15px 12px 16px;
+  padding: 12px 16px;
   background: ${COLORS.softGrey};
   border-radius: 10px;
 
@@ -17,17 +18,18 @@ const StyledDropdown = styled.select`
 `;
 
 
-function CategoryDropdown({ categories, selectedCategory, onSelectCategory }) {
+function Dropdown({ name, options, selectedOption, onSelectOption }) {
   return (
-    <StyledDropdown value={selectedCategory} onChange={(e) => onSelectCategory(e.target.value)}>
-      <option value="">Toutes les catégories</option>
-      {categories.map((category) => (
-        <option key={category} value={category}>
-          {category}
+    <StyledDropdown value={selectedOption} onChange={(e) => onSelectOption(e.target.value)}>
+      <option value="">{`${name}`}</option>
+      {options.map((option) => (
+        <option key={`${name}-${option}`} value={option}>
+          {option}
         </option>
       ))}
     </StyledDropdown>
   );
 }
 
-export default CategoryDropdown;
+export default Dropdown;
+
