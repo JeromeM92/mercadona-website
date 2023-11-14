@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
+import TextField from '../commonComponents/TextField';
 import styled from 'styled-components';
+import { COLORS } from '../../assets/colors/colors';
+import Dropdown from '../commonComponents/DropDown';
+import { Link } from 'react-router-dom';
 
 const mockProduct = {
   id: 1,
@@ -44,16 +48,48 @@ const ConfigContainer = styled.div`
 `;
 
 const Button = styled.button`
-  margin-right: 10px;
+  
+
+`;
+const PromotionButton = styled.button`
+  margin-left: 20px;
+
+`;
+const CreateProductButton = styled.button`
+  margin-left: 20px;
+
 `;
 
-const Input = styled.input`
-  margin-bottom: 10px;
+const CreateConfigButton = styled.button`
+    width: 5vw;
+    grid-column:1;
+    background-color: ${COLORS.yellow};
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid ${COLORS.darkGreen};
+    margin-top: 2vh;
+
+    @media (max-width: 1200px) {
+      width: auto;
+    }
 `;
 
 const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin-top: 2vh;
+  display: grid;
+  grid-template-columns: 20vw 20vw; 
+  gap: 10px;
+
+  @media (max-width: 1200px) {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    width: 100%
+    margin-top: 20px;
+    gap: 1vh;
+  }
 `;
 
 const ProductListContainer = styled.div`
@@ -61,7 +97,7 @@ const ProductListContainer = styled.div`
   width: 100%;
   margin-top: 20px;
   display: grid;
-  grid-template-columns: 1fr; // Une seule colonne
+  grid-template-columns: 1fr;
   gap: 10px;
 
   @media (max-width: 1200px) {
@@ -76,6 +112,7 @@ const ProductListContainer = styled.div`
 function AdminScreen (){
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [showPromotionForm, setShowPromotionForm] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCategoryClick = () => {
     setShowCategoryForm((prev) => !prev);
@@ -91,23 +128,32 @@ function AdminScreen (){
         <AdminScreenContainer>
           <ConfigContainer>
             <Button onClick={handleCategoryClick}>Créer Catégorie</Button>
-            <Button onClick={handlePromotionClick}>Créer Promotion</Button>
+            <PromotionButton onClick={handlePromotionClick}>Créer Promotion</PromotionButton>
+            <Link to="/admin-create-product">
+            <CreateProductButton>Créer un produit</CreateProductButton>
+            </Link>
             {showCategoryForm && (
             <FormContainer>
-              <Input type="text" placeholder="Nouvelle Catégorie" />
-              <Button>Créer</Button>
+              <TextField name="Catégorie" value="" onChange={(value) => console.log(value)} />
+              <CreateConfigButton>Créer</CreateConfigButton>
             </FormContainer>
           )}
           {showPromotionForm && (
             <FormContainer>
-              <Input type="text" placeholder="Date de début" />
-              <Input type="text" placeholder="Date de fin" />
-              <Input type="text" placeholder="Nom de la promotion" />
-              <Input type="text" placeholder="Produit en promotion" />
-              <Input type="text" placeholder="Catégorie de produit en promotion" />
-              <Button>Créer</Button>
+              <TextField name="Date de début" value="" onChange={(value) => console.log(value)} />
+              <TextField name="Date de fin" value="" onChange={(value) => console.log(value)} />
+              <TextField name="Nom de la promotion" value="" onChange={(value) => console.log(value)} />
+              <TextField name="Produit en promotion" value="" onChange={(value) => console.log(value)} />
+              <Dropdown
+                        name="Catégorie"
+                        options={['Category1', 'Category2', 'Category3']}
+                        selectedOption={selectedCategory}
+                        onSelectOption={(category) => setSelectedCategory(category)}
+                        />
+              <CreateConfigButton>Créer</CreateConfigButton>
             </FormContainer>
           )}
+          
         </ConfigContainer>
           <ProductListContainer>
           <ProductList products={products}/>
