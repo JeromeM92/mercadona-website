@@ -5,7 +5,7 @@ import { COLORS } from '../../assets/colors/colors';
 
 const StyledDropdown = styled.select`
   width: 240px;
-  height: 40px; 
+  height: 40px;
   border: 1px solid ${COLORS.darkGreen};
   padding: 12px 16px;
   background: ${COLORS.softGrey};
