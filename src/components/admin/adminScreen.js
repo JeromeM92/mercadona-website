@@ -26,7 +26,7 @@ const mockProduct = {
   discount: "- 20%", // pourcentage de réduction
 };
 
-const products = [
+const listMockProducts = [
   mockProduct, mockProduct, mockProduct
 ];
 
@@ -216,7 +216,11 @@ function AdminScreen (){
           
         </ConfigContainer>
           <ProductListContainer>
-          <ProductList products={products}/>
+          {/* Pour mocker un appel api */}
+          <ProductList products={listMockProducts}/>
+
+          {/* A utiliser pour l'appel api */}
+          {/*<ProductList products={filteredProducts}/>*/}
           </ProductListContainer>
         </AdminScreenContainer>
   
