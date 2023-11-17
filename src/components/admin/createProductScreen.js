@@ -97,7 +97,7 @@ function CreateProductScreen() {
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedPromotion, setSelectedPromotion] = useState('');
+  const [selectedDeal, setSelectedDeal] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [categories, setCategories] = useState([]);
   const [deals, setDeals] = useState([]);
@@ -142,7 +142,7 @@ function CreateProductScreen() {
           price: parseFloat(productPrice),
           description: productDescription,
           category: selectedCategory,
-          deal: selectedPromotion,
+          deal: selectedDeal,
           imageUrl: productImage,
         };
 
@@ -153,7 +153,7 @@ function CreateProductScreen() {
         setProductPrice('');
         setProductDescription('');
         setSelectedCategory('');
-        setSelectedPromotion('');
+        setSelectedDeal('');
         setProductImage(null);
         
         //Idéalement il faudrait créer une pop up pour avertir l'admin du succés ou de l'échec
@@ -201,8 +201,8 @@ function CreateProductScreen() {
                         <Dropdown
                         name="Promotion"
                         options={deals.map((deal) => deal.dealName)}
-                        selectedOption={selectedPromotion}
-                        onSelectOption={(promotion) => setSelectedPromotion(promotion)}
+                        selectedOption={selectedDeal}
+                        onSelectOption={(deal) => setSelectedDeal(deal)}
                         />
                 </DealContainer>
                 <DescriptionField 
