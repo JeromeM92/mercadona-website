@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../assets/colors/colors';
 import Dropdown from '../commonComponents/DropDown';
 import { Link } from 'react-router-dom';
+import { createCategory } from './api/categoryApi';
 
 const mockProduct = {
   id: 1,
@@ -110,13 +111,25 @@ const ProductListContainer = styled.div`
 `;
 
 function AdminScreen (){
+  const [categoryName, setCategoryName] = useState('');
+
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [showPromotionForm, setShowPromotionForm] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCategoryClick = () => {
-    setShowCategoryForm((prev) => !prev);
-    setShowPromotionForm(false);
+
+      setShowCategoryForm((prev) => !prev);
+      setShowPromotionForm(false);
+  };
+  const sendCategory = async () => {
+
+    try {
+      const response = await createCategory("NomDeVotreCategorie");
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handlePromotionClick = () => {
@@ -130,12 +143,12 @@ function AdminScreen (){
             <Button onClick={handleCategoryClick}>Créer Catégorie</Button>
             <PromotionButton onClick={handlePromotionClick}>Créer Promotion</PromotionButton>
             <Link to="/admin-create-product">
-            <CreateProductButton>Créer un produit</CreateProductButton>
+            <CreateProductButton >Créer un produit</CreateProductButton>
             </Link>
             {showCategoryForm && (
             <FormContainer>
-              <TextField name="Catégorie" value="" onChange={(value) => console.log(value)} />
-              <CreateConfigButton>Créer</CreateConfigButton>
+              <TextField name="Catégorie" value={categoryName} onChange={setCategoryName} />
+              <CreateConfigButton onClick={sendCategory}>Créer</CreateConfigButton>
             </FormContainer>
           )}
           {showPromotionForm && (
