@@ -1,9 +1,11 @@
 // CustomerScreen.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropdown from '../commonComponents/DropDown';
 import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
+import { getProducts } from '../admin/api/productApi';
+import { getCategories } from './api/categoryApi';
 
 const mockProduct = {
   id: 1,
@@ -66,6 +68,34 @@ const ProductListContainer = styled.div`
 
 function CustomerScreen() {
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategories();
+  }, []); 
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData = await getProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
@@ -77,13 +107,13 @@ function CustomerScreen() {
         <CategoryDropdownContainer>
           <Dropdown
             name="Catégorie"
-            options={['Category1', 'Category2', 'Category3']}
+            options={categories.map((category) => category.categoryName)}
             selectedOption={selectedCategory}
             onSelectOption={(category) => setSelectedCategory(category)}
           />
         </CategoryDropdownContainer>
         <ProductListContainer>
-          <ProductList products={products}/>
+          <ProductList products={filteredProducts}/>
         </ProductListContainer>
         
       </CustomerScreenContainer>

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Dropdown from '../commonComponents/DropDown';
 import TextField from '../commonComponents/TextField';
 import ImageUploader from '../commonComponents/ImageUploader';
 import { COLORS } from '../../assets/colors/colors';
+import { createProduct } from './api/productApi';
+import { getCategories } from './api/categoryApi';
+import { getAllDeals } from './api/dealApi';
 
 const ProductCreationContainer = styled.div`
     width: 60%;
@@ -52,11 +55,11 @@ const CategoryContainer = styled.div`
     grid-column: 3;
 `;
 // PROMOTION
-const PromotionLabel = styled.label`
+const DealLabel = styled.label`
     grid-row: 3;
     grid-column: 3 ;
 `;
-const PromotionContainer = styled.div`
+const DealContainer = styled.div`
     grid-row: 4;
     grid-column: 3;
 `;
@@ -95,16 +98,77 @@ function CreateProductScreen() {
   const [productDescription, setProductDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedPromotion, setSelectedPromotion] = useState('');
+  const [productImage, setProductImage] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [deals, setDeals] = useState([]);
 
-  const handleCreateProduct = {
+  useEffect(() => {
+    const fetchDeals = async () => {
+      try {
+        const dealsData = await getAllDeals();
+        setDeals(dealsData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  }
+    fetchDeals();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategories();
+  }, []); 
+
+  const handleCreateProduct = async() => {
+    try {
+        // Vérifiez si tous les champs obligatoires sont renseignés
+        if (!productName || !productPrice || !selectedCategory) {
+          console.error('Veuillez remplir tous les champs obligatoires');
+          return;
+        }
+  
+        // Construis l'objet du produit
+        const newProduct = {
+          productName,
+          price: parseFloat(productPrice),
+          description: productDescription,
+          category: selectedCategory,
+          deal: selectedPromotion,
+          imageUrl: productImage,
+        };
+
+        await createProduct(newProduct);
+  
+        // Réinitialisez les champs après la création réussie du produit
+        setProductName('');
+        setProductPrice('');
+        setProductDescription('');
+        setSelectedCategory('');
+        setSelectedPromotion('');
+        setProductImage(null);
+        
+        //Idéalement il faudrait créer une pop up pour avertir l'admin du succés ou de l'échec
+        console.log('Produit créé avec succès!');
+      } catch (error) {
+        console.error('Erreur lors de la création du produit', error);
+      }
+
+  };
 
   return (
     <ProductCreationContainer>
             <ImageLabel>Photo du produit</ImageLabel>
             <ProductImageContainer>
-            <ImageUploader onChange={(file) => console.log('Fichier sélectionné :', file)} />
+            <ImageUploader onChange={(file) => setProductImage(file)} />
             </ProductImageContainer>
             
                 <NameLabel>Nom du produit</NameLabel>
@@ -127,20 +191,20 @@ function CreateProductScreen() {
                  <CategoryContainer>
                     <Dropdown
                         name="Catégorie"
-                        options={['Category1', 'Category2', 'Category3']}
+                        options={categories.map((category) => category.categoryName)}
                         selectedOption={selectedCategory}
                         onSelectOption={(category) => setSelectedCategory(category)}
                         />
                 </CategoryContainer>
-                <PromotionLabel>Promotion</PromotionLabel>   
-                <PromotionContainer>
+                <DealLabel>Promotion</DealLabel>   
+                <DealContainer>
                         <Dropdown
                         name="Promotion"
-                        options={['Promo1', 'Promo2', 'Promo3']}
+                        options={deals.map((deal) => deal.dealName)}
                         selectedOption={selectedPromotion}
                         onSelectOption={(promotion) => setSelectedPromotion(promotion)}
                         />
-                </PromotionContainer>
+                </DealContainer>
                 <DescriptionField 
                     value={productDescription} 
                     onChange={(e) => setProductDescription(e.target.value)} 
