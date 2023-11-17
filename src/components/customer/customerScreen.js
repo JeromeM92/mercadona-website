@@ -5,7 +5,7 @@ import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
 import { getProducts } from '../admin/api/productApi';
-import { getCategories } from './api/categoryApi';
+import { getCategories } from '../admin/api/categoryApi';
 
 const mockProduct = {
   id: 1,
@@ -24,7 +24,7 @@ const mockProduct = {
   discount: "- 20%", // pourcentage de réduction
 };
 
-const products = [
+const listMockProducts = [
   mockProduct, mockProduct, mockProduct
 ];
 const CustomerScreenContainer = styled.div`
@@ -113,7 +113,11 @@ function CustomerScreen() {
           />
         </CategoryDropdownContainer>
         <ProductListContainer>
-          <ProductList products={filteredProducts}/>
+           {/* Pour mocker un appel api */}
+           <ProductList products={listMockProducts}/>
+
+           {/* A utiliser pour l'appel api */}
+          {/*<ProductList products={filteredProducts}/>*/}
         </ProductListContainer>
         
       </CustomerScreenContainer>
