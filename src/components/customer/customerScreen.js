@@ -5,7 +5,7 @@ import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
 import { getProducts } from '../admin/api/productApi';
-import { getCategories } from './api/categoryApi';
+import { getCategories } from '../admin/api/categoryApi';
 
 const mockProduct = {
   id: 1,
