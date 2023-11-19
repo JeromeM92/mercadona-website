@@ -2,7 +2,7 @@ const BASE_URL = 'http://localhost:8080/api';
 
 export const createCategory = async (categoryName) => {
   try {
-    const response = await fetch(`${BASE_URL}/category/create`, {
+    const response = await fetch(`${BASE_URL}/category/create-category`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,9 +24,10 @@ export const createCategory = async (categoryName) => {
 
 export const getCategories = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/category/read`);
+    const response = await fetch(`${BASE_URL}/category/all-categories`);
 
     if (!response.ok) {
+      console.error('Error fetching categories. HTTP status:', response.status);
       throw new Error('Erreur lors de la récupération des catégories');
     }
 
@@ -77,5 +78,3 @@ export const deleteCategory = async (categoryId) => {
     throw error;
   }
 };
-
-// Ajoutez d'autres fonctions de requête selon vos besoins
