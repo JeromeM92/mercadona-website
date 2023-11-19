@@ -212,10 +212,10 @@ function AdminScreen (){
           )}
           {showDealForm && (
             <FormContainer>
-              <TextField name="Date de début" value={startDate} onChange={setStartDate} />
-              <TextField name="Date de fin" value={endDate} onChange={setEndDate} />
-              <TextField name="Nom de la promotion" value={dealName} onChange={setDealName} />
-              <TextField name="Promotion" value={discountPercentage} onChange={setDiscountPercentage} />
+              <TextField name="la Date de début" value={startDate} onChange={setStartDate} />
+              <TextField name="la Date de fin" value={endDate} onChange={setEndDate} />
+              <TextField name="le Nom de la promotion" value={dealName} onChange={setDealName} />
+              <TextField name="la Promotion" value={discountPercentage} onChange={setDiscountPercentage} />
               <Dropdown
                         name="Catégorie"
                         options={categories.map(category => category.categoryName)}

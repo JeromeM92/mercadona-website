@@ -19,7 +19,7 @@ function TextField({ name, value, onChange }) {
   return (
     <StyledTextInput
       type="text"
-      placeholder={`Entrez le ${name.toLowerCase()}`}
+      placeholder={`Entrez ${name.toLowerCase()}`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />
