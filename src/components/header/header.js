@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import MercadonaLogo from "../../assets/logo-mercadona.png"
 
-// Styles pour le composant de header
 const HeaderContainer = styled.header`
   height: 100px;
   padding-left: 40px;

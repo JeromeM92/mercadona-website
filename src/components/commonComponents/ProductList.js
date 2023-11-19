@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import Product from '../customer/product';
-import Dropdown from './DropDown';
-import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import styled from 'styled-components';
 
 const ProductListContainer = styled.div`

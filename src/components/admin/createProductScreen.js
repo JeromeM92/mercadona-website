@@ -127,10 +127,37 @@ function CreateProductScreen() {
 
     fetchCategories();
   }, []); 
+  const handleDealSelect = async (dealName) => {
+    try {
+      const selectedDeal = deals.find(deal => deal.dealName === dealName);
+  
+      if (selectedDeal) {
+        setSelectedDeal(selectedDeal);
+      } else {
+        console.error("Deal non trouvé");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération du deal:", error);
+    }
+  };
+
+  const handleCategorySelect = async (categoryName) => {
+    try {
+      const selectedCategory = categories.find(category => category.categoryName === categoryName);
+  
+      
+      if (selectedCategory) {
+        setSelectedCategory(selectedCategory);
+      } else {
+        console.error("Catégorie non trouvée");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération de la catégorie:", error);
+    }
+  };
 
   const handleCreateProduct = async() => {
     try {
-        // Vérifiez si tous les champs obligatoires sont renseignés
         if (!productName || !productPrice || !selectedCategory) {
           console.error('Veuillez remplir tous les champs obligatoires');
           return;
@@ -138,11 +165,11 @@ function CreateProductScreen() {
   
         // Construis l'objet du produit
         const newProduct = {
-          productName,
+          productName: productName,
           price: parseFloat(productPrice),
           description: productDescription,
-          category: selectedCategory,
-          deal: selectedDeal,
+          category: selectedCategory? selectedCategory.categoryId : null,
+          deal: selectedDeal ? selectedDeal.dealId : null,
           imageUrl: productImage,
         };
 
@@ -192,8 +219,8 @@ function CreateProductScreen() {
                     <Dropdown
                         name="Catégorie"
                         options={categories.map((category) => category.categoryName)}
-                        selectedOption={selectedCategory}
-                        onSelectOption={(category) => setSelectedCategory(category)}
+                        selectedOption={selectedCategory ? selectedCategory.categoryName : ''}
+                        onSelectOption={handleCategorySelect}
                         />
                 </CategoryContainer>
                 <DealLabel>Promotion</DealLabel>   
@@ -201,8 +228,8 @@ function CreateProductScreen() {
                         <Dropdown
                         name="Promotion"
                         options={deals.map((deal) => deal.dealName)}
-                        selectedOption={selectedDeal}
-                        onSelectOption={(deal) => setSelectedDeal(deal)}
+                        selectedOption={selectedDeal ? selectedDeal.dealName : ''}
+                        onSelectOption={handleDealSelect}
                         />
                 </DealContainer>
                 <DescriptionField 
