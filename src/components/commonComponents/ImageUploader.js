@@ -74,7 +74,7 @@ const ImageUploader = ({ onChange }) => {
   };
   const handleRemoveImage = () => {
     setImagePreview(null);
-    onChange(null); // Pass null to indicate that the image has been removed
+    onChange(null);
   };
 
   return (

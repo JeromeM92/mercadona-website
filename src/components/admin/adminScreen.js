@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
 import TextField from '../commonComponents/TextField';
 import styled from 'styled-components';
@@ -8,8 +7,9 @@ import Dropdown from '../commonComponents/DropDown';
 import { Link } from 'react-router-dom';
 import { createCategory, getCategories } from './api/categoryApi';
 import { createDeal } from './api/dealApi';
+import { getProducts } from '../admin/api/productApi';
 
-const mockProduct = {
+/*const mockProduct = {
   id: 1,
   name: "Produit de test",
   title: "Pixel 6a",
@@ -28,7 +28,7 @@ const mockProduct = {
 
 const listMockProducts = [
   mockProduct, mockProduct, mockProduct
-];
+];*/
 
 const AdminScreenContainer = styled.div`
   display: grid;
@@ -117,6 +117,7 @@ function AdminScreen (){
 
   // État pour stocker les catégories récupérées depuis l'API
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -147,6 +148,17 @@ function AdminScreen (){
         console.error(error);
       }
     };
+
+    const fetchProducts = async () => {
+      try {
+        const productsData = await getProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
 
     fetchCategories();
   }, []);
@@ -200,10 +212,10 @@ function AdminScreen (){
           )}
           {showDealForm && (
             <FormContainer>
-              <TextField name="Date de début" value={startDate} onChange={(value) => setStartDate} />
-              <TextField name="Date de fin" value={endDate} onChange={(value) => setEndDate} />
-              <TextField name="Nom de la promotion" value={dealName} onChange={(value) => setDealName} />
-              <TextField name="Produit en promotion" value={discountPercentage} onChange={(value) => setDiscountPercentage} />
+              <TextField name="Date de début" value={startDate} onChange={setStartDate} />
+              <TextField name="Date de fin" value={endDate} onChange={setEndDate} />
+              <TextField name="Nom de la promotion" value={dealName} onChange={setDealName} />
+              <TextField name="Promotion" value={discountPercentage} onChange={setDiscountPercentage} />
               <Dropdown
                         name="Catégorie"
                         options={categories.map(category => category.categoryName)}
@@ -217,7 +229,7 @@ function AdminScreen (){
         </ConfigContainer>
           <ProductListContainer>
           {/* Pour mocker un appel api */}
-          <ProductList products={listMockProducts}/>
+          <ProductList products={products}/>
 
           {/* A utiliser pour l'appel api */}
           {/*<ProductList products={filteredProducts}/>*/}

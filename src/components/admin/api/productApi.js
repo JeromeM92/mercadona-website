@@ -1,8 +1,8 @@
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8080/api';
 
 export const getProducts = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/api/product`);
+    const response = await fetch(`${BASE_URL}/product/all-products`);
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des produits');
     }
@@ -14,10 +14,9 @@ export const getProducts = async () => {
   }
 };
 
-// Fonction pour créer un nouveau produit
 export const createProduct = async (productData) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/product`, {
+    const response = await fetch(`${BASE_URL}/product/create-product`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,6 +29,7 @@ export const createProduct = async (productData) => {
     }
 
     const data = await response.json();
+    console.log(response.data);
     return data;
   } catch (error) {
     console.error(error);
@@ -37,7 +37,6 @@ export const createProduct = async (productData) => {
   }
 };
 
-// Fonction pour mettre à jour un produit existant
 export const updateProduct = async (productId, productData) => {
   try {
     const response = await fetch(`${BASE_URL}/api/product/${productId}`, {
@@ -60,7 +59,7 @@ export const updateProduct = async (productId, productData) => {
   }
 };
 
-// Fonction pour supprimer un produit
+
 export const deleteProduct = async (productId) => {
   try {
     const response = await fetch(`${BASE_URL}/api/product/${productId}`, {

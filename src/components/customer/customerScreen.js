@@ -1,13 +1,11 @@
-// CustomerScreen.js
 import React, { useState, useEffect } from 'react';
 import Dropdown from '../commonComponents/DropDown';
-import Pixel6A from "../../assets/pixel-6a-3.jpg"
 import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
 import { getProducts } from '../admin/api/productApi';
 import { getCategories } from '../admin/api/categoryApi';
 
-const mockProduct = {
+/*const mockProduct = {
   id: 1,
   name: "Produit de test",
   title: "Pixel 6a",
@@ -26,7 +24,7 @@ const mockProduct = {
 
 const listMockProducts = [
   mockProduct, mockProduct, mockProduct
-];
+];*/
 const CustomerScreenContainer = styled.div`
   display: grid;
   grid-template-columns: 20% 60% 20%;
@@ -81,10 +79,8 @@ function CustomerScreen() {
       }
     };
 
-    fetchCategories();
-  }, []); 
+    
 
-  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const productsData = await getProducts();
@@ -95,6 +91,7 @@ function CustomerScreen() {
     };
 
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const filteredProducts = selectedCategory
@@ -114,7 +111,7 @@ function CustomerScreen() {
         </CategoryDropdownContainer>
         <ProductListContainer>
            {/* Pour mocker un appel api */}
-           <ProductList products={listMockProducts}/>
+           <ProductList products={products}/>
 
            {/* A utiliser pour l'appel api */}
           {/*<ProductList products={filteredProducts}/>*/}

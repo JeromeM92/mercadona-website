@@ -2,7 +2,7 @@ const BASE_URL = 'http://localhost:8080/api';
 
 export const getAllDeals = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/deal`, {
+    const response = await fetch(`${BASE_URL}/deal/all-deals`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -42,9 +42,10 @@ export const getDealById = async (dealId) => {
   }
 };
 
+
 export const createDeal = async (deal) => {
   try {
-    const response = await fetch(`${BASE_URL}/deal`, {
+    const response = await fetch(`${BASE_URL}/deal/create-deal`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,12 +57,13 @@ export const createDeal = async (deal) => {
       throw new Error('Erreur lors de la création de l\'offre');
     }
 
-    const data = await response.json();
-    return data;
+    const string = await response.text();
+    const json = string === "" ? {} : JSON.parse(string);
+    return json;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-// Ajoutez d'autres fonctions de requête selon vos besoins
+
