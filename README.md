@@ -1,4 +1,4 @@
-# Projet XYZ - Frontend (React.js)
+# Projet Mercadona - Frontend (React.js)
 
 ## Pré-requis
 
