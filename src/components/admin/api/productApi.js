@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'https://mercadona-api-cd87d0cdea3a.herokuapp.com/api';
 
 export const getProducts = async () => {
   try {
@@ -14,14 +14,15 @@ export const getProducts = async () => {
   }
 };
 
-export const createProduct = async (productData) => {
+export const createProduct = async (product) => {
+  console.log('Product being sent:', product);
   try {
     const response = await fetch(`${BASE_URL}/product/create-product`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(product),
     });
 
     if (!response.ok) {
