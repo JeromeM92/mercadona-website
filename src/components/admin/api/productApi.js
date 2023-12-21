@@ -14,15 +14,12 @@ export const getProducts = async () => {
   }
 };
 
-export const createProduct = async (product) => {
-  console.log('Product being sent:', product);
+export const createProduct = async (formData) => {
+  console.log('Product being sent:', formData);
   try {
     const response = await fetch(`${BASE_URL}/product/create-product`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(product),
+      body: formData,
     });
 
     if (!response.ok) {

@@ -163,17 +163,17 @@ function CreateProductScreen() {
           return;
         }
   
-        // Construis l'objet du produit
-        const newProduct = {
-          productName: productName,
-          price: parseFloat(productPrice),
-          description: productDescription,
-          category: selectedCategory? selectedCategory.categoryId : null,
-          deal: selectedDeal ? selectedDeal.dealId : null,
-          imageUrl: productImage,
-        };
+        const formData = new FormData();
+        formData.append('productName', productName);
+        formData.append('price', productPrice);
+        formData.append('description', productDescription);
+        formData.append('category', selectedCategory ? selectedCategory.categoryId : '');
+        formData.append('deal', selectedDeal ? selectedDeal.dealId : '');
+        if (productImage) {
+          formData.append('image', productImage); // 'image' est le nom du champ attendu par le backend
+        }
 
-        await createProduct(newProduct);
+        await createProduct(formData);
   
         // Réinitialisez les champs après la création réussie du produit
         setProductName('');
