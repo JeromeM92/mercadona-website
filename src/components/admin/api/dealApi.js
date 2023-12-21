@@ -5,9 +5,6 @@ export const getAllDeals = async () => {
   try {
     const response = await fetch(`${BASE_URL}/deal/all-deals`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
     if (!response.ok) {
@@ -26,9 +23,6 @@ export const getDealById = async (dealId) => {
   try {
     const response = await fetch(`${BASE_URL}/deal/${dealId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
     if (!response.ok) {

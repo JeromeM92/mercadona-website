@@ -127,53 +127,34 @@ function CreateProductScreen() {
 
     fetchCategories();
   }, []); 
-  const handleDealSelect = async (dealName) => {
-    try {
-      const selectedDeal = deals.find(deal => deal.dealName === dealName);
-  
-      if (selectedDeal) {
-        setSelectedDeal(selectedDeal);
-      } else {
-        console.error("Deal non trouvé");
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération du deal:", error);
-    }
+  const handleDealSelect = (dealName) => {
+    const selectedDeal = deals.find(deal => deal.dealName === dealName);
+    setSelectedDeal(selectedDeal ? selectedDeal.dealId : '');
   };
 
-  const handleCategorySelect = async (categoryName) => {
-    try {
-      const selectedCategory = categories.find(category => category.categoryName === categoryName);
-  
-      
-      if (selectedCategory) {
-        setSelectedCategory(selectedCategory);
-      } else {
-        console.error("Catégorie non trouvée");
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération de la catégorie:", error);
-    }
+  const handleCategorySelect = (categoryName) => {
+    const selectedCategory = categories.find(category => category.categoryName === categoryName);
+    setSelectedCategory(selectedCategory ? selectedCategory.categoryId : '');
   };
 
   const handleCreateProduct = async() => {
-    try {
-        if (!productName || !productPrice || !selectedCategory) {
-          console.error('Veuillez remplir tous les champs obligatoires');
-          return;
-        }
+    if (!productName || !productPrice || !selectedCategory) {
+      console.error('Veuillez remplir tous les champs obligatoires');
+      return;
+    }
   
-        const formData = new FormData();
-        formData.append('productName', productName);
-        formData.append('price', productPrice);
-        formData.append('description', productDescription);
-        formData.append('category', selectedCategory ? selectedCategory.categoryId : '');
-        formData.append('deal', selectedDeal ? selectedDeal.dealId : '');
-        if (productImage) {
-          formData.append('image', productImage); // 'image' est le nom du champ attendu par le backend
-        }
-
-        await createProduct(formData);
+    const formData = new FormData();
+    formData.append('productName', productName);
+    formData.append('price', productPrice);
+    formData.append('description', productDescription);
+    formData.append('categoryId', selectedCategory);
+    formData.append('dealId', selectedDeal);
+    if (productImage) {
+      formData.append('image', productImage);
+    }
+  
+    try {
+      await createProduct(formData);
   
         // Réinitialisez les champs après la création réussie du produit
         setProductName('');
