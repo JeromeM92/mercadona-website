@@ -2,12 +2,12 @@ const BASE_URL = 'https://mercadona-api-cd87d0cdea3a.herokuapp.com/api';
 
 export const createCategory = async (categoryName) => {
   try {
-    const response = await fetch(`${BASE_URL}/category/create-category`, {
+    const response = await fetch(`${BASE_URL}/category/create-category`, { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ categoryName }),
+      body: JSON.stringify({ categoryName }), 
     });
 
     if (!response.ok) {
@@ -22,9 +22,10 @@ export const createCategory = async (categoryName) => {
   }
 };
 
+
 export const getCategories = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/category/all-categories`);
+    const response = await fetch(`${BASE_URL}/category/all-categories`); 
 
     if (!response.ok) {
       console.error('Error fetching categories. HTTP status:', response.status);
@@ -39,14 +40,15 @@ export const getCategories = async () => {
   }
 };
 
+
 export const updateCategory = async (categoryId, updatedCategory) => {
   try {
-    const response = await fetch(`${BASE_URL}/category/update/${categoryId}`, {
+    const response = await fetch(`${BASE_URL}/category/update/${categoryId}`, { 
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedCategory),
+      body: JSON.stringify(updatedCategory), 
     });
 
     if (!response.ok) {
@@ -61,9 +63,10 @@ export const updateCategory = async (categoryId, updatedCategory) => {
   }
 };
 
+
 export const deleteCategory = async (categoryId) => {
   try {
-    const response = await fetch(`${BASE_URL}/category/delete/${categoryId}`, {
+    const response = await fetch(`${BASE_URL}/category/delete/${categoryId}`, { 
       method: 'DELETE',
     });
 
@@ -71,10 +74,11 @@ export const deleteCategory = async (categoryId) => {
       throw new Error('Erreur lors de la suppression de la catégorie');
     }
 
-    const data = await response.json();
-    return data;
+    
+    return true; 
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
+

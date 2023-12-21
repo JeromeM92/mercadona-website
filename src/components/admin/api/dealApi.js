@@ -1,5 +1,6 @@
 const BASE_URL = 'https://mercadona-api-cd87d0cdea3a.herokuapp.com/api';
 
+
 export const getAllDeals = async () => {
   try {
     const response = await fetch(`${BASE_URL}/deal/all-deals`, {
