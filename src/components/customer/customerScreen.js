@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Dropdown from '../commonComponents/DropDown';
 import ProductList from '../commonComponents/ProductList';
 import styled from 'styled-components';
-import { getProducts } from '../admin/api/productApi';
+import { getProducts, getProductsByCategory } from '../admin/api/productApi';
 import { getCategories } from '../admin/api/categoryApi';
 
 /*const mockProduct = {
@@ -70,32 +70,51 @@ function CustomerScreen() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    // Chargement initial des catégories et des produits
+    const fetchInitialData = async () => {
       try {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    
-
-    const fetchProducts = async () => {
-      try {
         const productsData = await getProducts();
         setProducts(productsData);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching initial data:', error);
       }
     };
 
-    fetchProducts();
-    fetchCategories();
+    fetchInitialData();
   }, []);
 
+  // Mise à jour de la liste des produits quand la catégorie sélectionnée change
+  useEffect(() => {
+    const fetchProductsByCategory = async () => {
+      if (selectedCategory) {
+        try {
+          const productsData = await getProductsByCategory(selectedCategory);
+          setProducts(productsData);
+        } catch (error) {
+          console.error('Error fetching products by category:', error);
+        }
+      } else {
+        try {
+          const productsData = await getProducts();
+          setProducts(productsData);
+        } catch (error) {
+          console.error('Error fetching all products:', error);
+        }
+      }
+    };
+
+    fetchProductsByCategory();
+  }, [selectedCategory]);
+
+  const handleCategorySelect = (categoryName) => {
+    setSelectedCategory(categoryName);
+  };
+
+  // Filtrage côté client des produits par catégorie
   const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
+    ? products.filter((product) => product.categoryName === selectedCategory)
     : products;
 
   return (
@@ -111,7 +130,7 @@ function CustomerScreen() {
         </CategoryDropdownContainer>
         <ProductListContainer>
            {/* Pour mocker un appel api */}
-           <ProductList products={products}/>
+           <ProductList products={filteredProducts}/>
 
            {/* A utiliser pour l'appel api */}
           {/*<ProductList products={filteredProducts}/>*/}

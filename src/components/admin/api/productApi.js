@@ -14,6 +14,25 @@ export const getProducts = async () => {
   }
 };
 
+export const getProductsByCategory = async (categoryName) => {
+  try {
+    const response = await fetch(`${BASE_URL}/product/category/${categoryName}`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des produits de la catégorie');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des produits par catégorie:', error);
+    throw error;
+  }
+};
+
+
 export const createProduct = async (formData) => {
   console.log('Product being sent:', formData);
   try {
