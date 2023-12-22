@@ -7,6 +7,10 @@ import { COLORS } from '../../assets/colors/colors';
 import { createProduct } from './api/productApi';
 import { getCategories } from './api/categoryApi';
 import { getAllDeals } from './api/dealApi';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const ProductCreationContainer = styled.div`
     width: 60%;
@@ -93,6 +97,7 @@ const CreateButton = styled.button`
 `;
 
 function CreateProductScreen() {
+  const navigate = useNavigate();
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -166,6 +171,7 @@ function CreateProductScreen() {
         
         //Idéalement il faudrait créer une pop up pour avertir l'admin du succés ou de l'échec
         console.log('Produit créé avec succès!');
+        navigate('/admin-board');
       } catch (error) {
         console.error('Erreur lors de la création du produit', error);
       }

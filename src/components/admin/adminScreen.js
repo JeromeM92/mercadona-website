@@ -216,12 +216,6 @@ function AdminScreen (){
               <TextField name="la Date de fin" value={endDate} onChange={setEndDate} />
               <TextField name="le Nom de la promotion" value={dealName} onChange={setDealName} />
               <TextField name="la Promotion" value={discountPercentage} onChange={setDiscountPercentage} />
-              <Dropdown
-                        name="Catégorie"
-                        options={categories.map(category => category.categoryName)}
-                        selectedOption={selectedCategory}
-                        onSelectOption={(category) => setSelectedCategory(category)}
-                        />
               <CreateConfigButton onClick={createDealHandler}>Créer</CreateConfigButton>
             </FormContainer>
           )}

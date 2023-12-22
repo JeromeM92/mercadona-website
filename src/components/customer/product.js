@@ -11,6 +11,7 @@ const ProductContainer = styled.div`
     background-color: white;
     display: flex; 
     justify-content: space-between;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 
     @media (max-width: 768px) {
         width: auto;
@@ -139,7 +140,7 @@ function Product({ product }) {
     <ProductContainer>
         <ProductImage src={product.image} alt={product.title} />
         <ProductTitleDescriptionContainer>
-            <ProductTitle>{product.title}</ProductTitle>
+            <ProductTitle>{product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
         </ProductTitleDescriptionContainer>
        
