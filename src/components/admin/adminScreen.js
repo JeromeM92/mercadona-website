@@ -111,6 +111,7 @@ const ProductListContainer = styled.div`
   }
 `;
 
+
 function AdminScreen (){
   // Initialisation des états pour stocker les valeurs des champs du formulaire et gérer l'affichage des formulaires
   const [categoryName, setCategoryName] = useState('');
@@ -167,6 +168,7 @@ function AdminScreen (){
   const createCategoryHandler = async () => {
     try {
       const response = await createCategory(categoryName);
+      setCategoryName('');
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -190,6 +192,10 @@ function AdminScreen (){
       };
 
       const response = await createDeal(newDeal);
+      setDealName('')
+      setDiscountPercentage('')
+      setEndDate('')
+      setStartDate('')
       console.log(response);
     } catch (error) {
       console.error(error);
